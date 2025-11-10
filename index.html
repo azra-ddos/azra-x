@@ -9,8 +9,8 @@
         :root {
             --primary-color: #2563eb;
             --primary-dark: #1d4ed8;
-            --bg-color: #f8fafc;
-            --sidebar-bg: #ffffff;
+            --bg-color: #ffffff;
+            --sidebar-bg: #f8fafc;
             --chat-bg: #ffffff;
             --text-primary: #1e293b;
             --text-secondary: #64748b;
@@ -19,6 +19,7 @@
             --ai-msg-bg: #ffffff;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 12px;
+            --hover-color: #f1f5f9;
         }
 
         .dark-mode {
@@ -26,13 +27,14 @@
             --primary-dark: #2563eb;
             --bg-color: #0f172a;
             --sidebar-bg: #1e293b;
-            --chat-bg: #1e293b;
+            --chat-bg: #0f172a;
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
             --border-color: #334155;
-            --user-msg-bg: #334155;
-            --ai-msg-bg: #1e293b;
+            --user-msg-bg: #1e293b;
+            --ai-msg-bg: #0f172a;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --hover-color: #334155;
         }
 
         * {
@@ -80,19 +82,7 @@
             gap: 10px;
         }
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .logo-image {
+        .logo-img {
             width: 32px;
             height: 32px;
             border-radius: 8px;
@@ -154,12 +144,11 @@
         }
 
         .history-item:hover {
-            background-color: var(--user-msg-bg);
+            background-color: var(--hover-color);
         }
 
         .history-item.active {
-            background-color: var(--user-msg-bg);
-            border-left: 3px solid var(--primary-color);
+            background-color: var(--hover-color);
         }
 
         .history-icon {
@@ -175,19 +164,23 @@
             flex: 1;
         }
 
-        .delete-history {
+        .delete-indicator {
+            position: absolute;
+            right: 12px;
+            color: #ef4444;
             opacity: 0;
-            color: var(--text-secondary);
             transition: opacity 0.2s;
         }
 
-        .history-item:hover .delete-history {
+        .history-item.deleting .delete-indicator {
             opacity: 1;
         }
 
-        .sidebar-footer {
-            padding: 16px;
-            border-top: 1px solid var(--border-color);
+        .empty-history {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
         }
 
         /* Main Chat Area */
@@ -234,7 +227,7 @@
         }
 
         .icon-btn:hover {
-            background-color: var(--user-msg-bg);
+            background-color: var(--hover-color);
             color: var(--text-primary);
         }
 
@@ -260,23 +253,9 @@
         .welcome-logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin-bottom: 24px;
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
-        }
-
-        .welcome-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
             object-fit: cover;
-            margin-bottom: 24px;
         }
 
         .welcome-title {
@@ -319,9 +298,7 @@
         }
 
         .user-msg .message-avatar {
-            background-color: var(--primary-color);
-            color: white;
-            order: 2;
+            display: none;
         }
 
         .ai-msg .message-avatar {
@@ -330,8 +307,8 @@
         }
 
         .message-content {
-            flex: 1;
             max-width: 85%;
+            position: relative;
         }
 
         .user-msg .message-content {
@@ -344,6 +321,7 @@
             color: var(--text-primary);
             padding: 16px;
             border-radius: var(--radius);
+            position: relative;
         }
 
         .user-msg .message-text {
@@ -356,6 +334,51 @@
             background-color: var(--ai-msg-bg);
             border: 1px solid var(--border-color);
             border-top-left-radius: 4px;
+        }
+
+        .message-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: none;
+            gap: 4px;
+        }
+
+        .user-msg .message-actions {
+            left: 8px;
+            right: auto;
+        }
+
+        .message-text:hover .message-actions {
+            display: flex;
+        }
+
+        .message-action-btn {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .user-msg .message-action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .message-action-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .user-msg .message-action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .code-block {
@@ -399,6 +422,9 @@
             padding: 4px 8px;
             border-radius: 4px;
             transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .code-action-btn:hover {
@@ -484,105 +510,8 @@
         }
 
         .input-action-btn:hover {
-            background-color: var(--user-msg-bg);
+            background-color: var(--hover-color);
             color: var(--text-primary);
-        }
-
-        /* Settings Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: var(--chat-bg);
-            border-radius: var(--radius);
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow);
-        }
-
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .modal-body {
-            padding: 20px;
-        }
-
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 16px;
-            border: 3px solid var(--primary-color);
-        }
-
-        .profile-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .profile-bio {
-            color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .telegram-btn {
-            background-color: #0088cc;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: var(--radius);
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.2s;
-        }
-
-        .telegram-btn:hover {
-            background-color: #0077b5;
         }
 
         /* Mobile Styles */
@@ -661,7 +590,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #f1f5f9;
+            background-color: #fbbf24;
             transition: .4s;
             border-radius: 34px;
             display: flex;
@@ -684,28 +613,194 @@
         }
 
         .theme-icon {
+            color: white;
             font-size: 14px;
             z-index: 1;
         }
 
-        .sun-icon {
-            color: #f59e0b;
-        }
-
-        .moon-icon {
-            color: #64748b;
-        }
-
         input:checked + .theme-slider {
-            background-color: #1e293b;
+            background-color: #3b82f6;
         }
 
         input:checked + .theme-slider:before {
             transform: translateX(30px);
         }
 
-        input:checked + .theme-slider .moon-icon {
-            color: #e2e8f0;
+        /* Settings Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: var(--hover-color);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .profile-bio {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .telegram-btn {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .telegram-btn:hover {
+            background-color: #0077b3;
+        }
+
+        .settings-section {
+            margin-top: 24px;
+        }
+
+        .settings-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-label {
+            color: var(--text-primary);
+        }
+
+        .settings-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Context Menu */
+        .context-menu {
+            position: fixed;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            min-width: 150px;
+            overflow: hidden;
+        }
+
+        .context-menu-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+            transition: background-color 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .context-menu-item:hover {
+            background-color: var(--hover-color);
+        }
+
+        .context-menu-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            width: 100%;
         }
 
         /* Responsive */
@@ -758,9 +853,9 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <!-- Ganti src dengan path ke logo AZRA-X Anda -->
-                    <img src="3.png" alt="AZRA-X" class="logo-image" id="logo-image">
-                    <div class="logo-text">𝐀𝐙𝐑𝐀-𝐗</div>
+                    <!-- Ganti src dengan path logo AZRA-X Anda -->
+                    <img src="azra-logo.jpg" alt="AZRA-X" class="logo-img">
+                    <div class="logo-text">AZRA-X</div>
                 </div>
             </div>
             
@@ -780,16 +875,16 @@
         <!-- Main Chat Area -->
         <div class="chat-container">
             <div class="chat-header">
-                <button class="mobile-menu-btn">
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="chat-title">𝐀𝐙𝐑𝐀-𝐗</div>
+                <div class="chat-title">AZRA-X</div>
                 <div class="header-actions">
                     <label class="theme-toggle">
                         <input type="checkbox" id="theme-toggle">
                         <span class="theme-slider">
-                            <i class="fas fa-sun theme-icon sun-icon"></i>
-                            <i class="fas fa-moon theme-icon moon-icon"></i>
+                            <i class="fas fa-sun theme-icon"></i>
+                            <i class="fas fa-moon theme-icon"></i>
                         </span>
                     </label>
                     <button class="icon-btn" id="settings-btn">
@@ -801,8 +896,8 @@
             <div class="chat-messages" id="chat-messages">
                 <!-- Welcome screen -->
                 <div class="welcome-container" id="welcome-screen">
-                    <!-- Ganti src dengan path ke logo AZRA-X Anda -->
-                    <img src="3.png" alt="AZRA-X" class="welcome-image" id="welcome-image">
+                    <!-- Ganti src dengan path logo AZRA-X Anda -->
+                    <img src="azra-logo.jpg" alt="AZRA-X" class="welcome-logo">
                     <h1 class="welcome-title">Hai, saya AZRA-X</h1>
                     <p class="welcome-subtitle">Saya adalah asisten AI yang dibuat oleh Naufal Azra. Saya siap membantu Anda dengan berbagai pertanyaan, penulisan kode, analisis, dan banyak lagi.</p>
                 </div>
@@ -831,38 +926,70 @@
             </div>
         </div>
         
+        <!-- Mobile Overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        
         <!-- Settings Modal -->
-        <div class="modal" id="settings-modal">
+        <div class="modal-overlay" id="settings-modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">Pengaturan</h2>
-                    <button class="close-modal" id="close-modal">
+                    <button class="modal-close" id="modal-close">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="profile-section">
-                        <!-- Ganti src dengan path ke foto profil Telegram Anda -->
-                        <img src="3.png" alt="Naufal Azra" class="profile-image" id="profile-image">
-                        <h2 class="profile-name">Naufal Azra</h2>
+                        <!-- Ganti src dengan path foto profil Telegram Anda -->
+                        <img src="profile.jpg" alt="Naufal Azra" class="profile-img">
+                        <h3 class="profile-name">Naufal Azra</h3>
                         <p class="profile-bio">Developer AZRA-X AI Assistant</p>
-                        <button class="telegram-btn" id="telegram-btn">
+                        <a href="https://t.me/naufalazra" class="telegram-btn" target="_blank">
                             <i class="fab fa-telegram"></i>
                             Telegram Saya
-                        </button>
+                        </a>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3 class="settings-title">Pengaturan Aplikasi</h3>
+                        <div class="settings-item">
+                            <div>
+                                <div class="settings-label">Mode Gelap</div>
+                                <div class="settings-desc">Ubah tampilan aplikasi menjadi mode gelap</div>
+                            </div>
+                            <label class="theme-toggle">
+                                <input type="checkbox" id="modal-theme-toggle">
+                                <span class="theme-slider">
+                                    <i class="fas fa-sun theme-icon"></i>
+                                    <i class="fas fa-moon theme-icon"></i>
+                                </span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Mobile Overlay -->
-        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Context Menu -->
+        <div class="context-menu" id="context-menu">
+            <button class="context-menu-item" id="context-edit">
+                <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="context-menu-item" id="context-copy">
+                <i class="fas fa-copy"></i> Salin
+            </button>
+            <div class="context-menu-divider"></div>
+            <button class="context-menu-item" id="context-select">
+                <i class="fas fa-mouse-pointer"></i> Pilih Teks
+            </button>
+        </div>
     </div>
 
     <script>
-        // API Configuration - GANTI DENGAN API KEY ANDA
-        const API_KEY = "AIzaSyD7u_COjnjU7K-DpaKYhDAB3_AEjHOOqS0";
-        const API_URL = "https://generativelanguage.googleapis.com/v1beta/";
+        // API Configuration
+        // GANTI API_KEY dengan API key Gemini Anda
+        const API_KEY = "AIzaSyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"; // Ganti dengan API key Anda
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
         
         // System prompt untuk kalibrasi AI
         const SYSTEM_PROMPT = "Kamu adalah AI buatan Naufal Azra yang bernama AZRA-X. Kamu adalah asisten AI yang ramah, membantu, dan profesional. Berikan respons yang jelas, informatif, dan relevan. Untuk kode pemrograman, berikan contoh yang lengkap dan terstruktur dengan baik.";
@@ -874,25 +1001,25 @@
         const welcomeScreen = document.getElementById('welcome-screen');
         const historyList = document.getElementById('history-list');
         const newChatBtn = document.getElementById('new-chat-btn');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.querySelector('.sidebar');
         const sidebarOverlay = document.getElementById('sidebar-overlay');
         const themeToggle = document.getElementById('theme-toggle');
+        const modalThemeToggle = document.getElementById('modal-theme-toggle');
         const settingsBtn = document.getElementById('settings-btn');
         const settingsModal = document.getElementById('settings-modal');
-        const closeModal = document.getElementById('close-modal');
-        const telegramBtn = document.getElementById('telegram-btn');
-        
-        // Logo dan gambar - GANTI DENGAN PATH GAMBAR ANDA
-        const logoImage = document.getElementById('logo-image');
-        const welcomeImage = document.getElementById('welcome-image');
-        const profileImage = document.getElementById('profile-image');
+        const modalClose = document.getElementById('modal-close');
+        const contextMenu = document.getElementById('context-menu');
+        const contextEdit = document.getElementById('context-edit');
+        const contextCopy = document.getElementById('context-copy');
+        const contextSelect = document.getElementById('context-select');
         
         // State
         let currentChatId = null;
         let chats = JSON.parse(localStorage.getItem('azra-x-chats')) || {};
         let currentMessages = [];
-        let deleteTimer = null;
+        let longPressTimer = null;
+        let selectedMessage = null;
         
         // Initialize
         function init() {
@@ -916,22 +1043,27 @@
             sidebarOverlay.addEventListener('click', toggleSidebar);
             
             themeToggle.addEventListener('change', toggleTheme);
+            modalThemeToggle.addEventListener('change', toggleTheme);
             
             settingsBtn.addEventListener('click', openSettings);
-            closeModal.addEventListener('click', closeSettings);
-            telegramBtn.addEventListener('click', openTelegram);
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', (e) => {
+            modalClose.addEventListener('click', closeSettings);
+            settingsModal.addEventListener('click', (e) => {
                 if (e.target === settingsModal) {
                     closeSettings();
                 }
             });
             
+            // Context menu events
+            document.addEventListener('click', closeContextMenu);
+            contextEdit.addEventListener('click', editMessage);
+            contextCopy.addEventListener('click', copyMessage);
+            contextSelect.addEventListener('click', selectMessageText);
+            
             // Check for saved theme
             if (localStorage.getItem('azra-x-theme') === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeToggle.checked = true;
+                modalThemeToggle.checked = true;
             }
             
             // Auto-focus on input
@@ -953,7 +1085,10 @@
         // Toggle theme
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
-            localStorage.setItem('azra-x-theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('azra-x-theme', isDarkMode ? 'dark' : 'light');
+            themeToggle.checked = isDarkMode;
+            modalThemeToggle.checked = isDarkMode;
         }
         
         // Open settings modal
@@ -966,17 +1101,12 @@
             settingsModal.style.display = 'none';
         }
         
-        // Open Telegram
-        function openTelegram() {
-            window.open('https://t.me/naufalazraa', '_blank');
-        }
-        
         // Load chat history
         function loadChatHistory() {
             historyList.innerHTML = '';
             
             if (Object.keys(chats).length === 0) {
-                historyList.innerHTML = '<div class="history-item"><span class="history-text">Tidak ada riwayat percakapan</span></div>';
+                historyList.innerHTML = '<div class="empty-history">Belum ada percakapan</div>';
                 return;
             }
             
@@ -991,61 +1121,60 @@
                 historyItem.innerHTML = `
                     <i class="fas fa-message history-icon"></i>
                     <span class="history-text">${chat.title}</span>
-                    <i class="fas fa-trash delete-history" data-chat-id="${chatId}"></i>
+                    <i class="fas fa-trash delete-indicator"></i>
                 `;
                 
-                historyItem.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('delete-history')) {
-                        loadChat(chatId);
-                    }
-                });
+                // Click to load chat
+                historyItem.addEventListener('click', () => loadChat(chatId));
                 
-                // Add long press to delete
-                const deleteBtn = historyItem.querySelector('.delete-history');
-                deleteBtn.addEventListener('mousedown', startDeleteTimer);
-                deleteBtn.addEventListener('mouseup', cancelDeleteTimer);
-                deleteBtn.addEventListener('mouseleave', cancelDeleteTimer);
-                deleteBtn.addEventListener('touchstart', startDeleteTimer);
-                deleteBtn.addEventListener('touchend', cancelDeleteTimer);
-                deleteBtn.addEventListener('touchcancel', cancelDeleteTimer);
+                // Long press to delete
+                historyItem.addEventListener('mousedown', startLongPress);
+                historyItem.addEventListener('touchstart', startLongPress);
+                historyItem.addEventListener('mouseup', cancelLongPress);
+                historyItem.addEventListener('touchend', cancelLongPress);
+                historyItem.addEventListener('mouseleave', cancelLongPress);
                 
                 historyList.appendChild(historyItem);
             });
         }
         
-        // Start delete timer
-        function startDeleteTimer(e) {
-            e.preventDefault();
-            const chatId = e.target.getAttribute('data-chat-id');
-            
-            deleteTimer = setTimeout(() => {
-                deleteChat(chatId);
+        // Start long press timer
+        function startLongPress(e) {
+            const historyItem = e.currentTarget;
+            longPressTimer = setTimeout(() => {
+                deleteChat(historyItem);
             }, 1500); // 1.5 seconds
         }
         
-        // Cancel delete timer
-        function cancelDeleteTimer() {
-            if (deleteTimer) {
-                clearTimeout(deleteTimer);
-                deleteTimer = null;
+        // Cancel long press
+        function cancelLongPress() {
+            if (longPressTimer) {
+                clearTimeout(longPressTimer);
+                longPressTimer = null;
             }
         }
         
         // Delete chat
-        function deleteChat(chatId) {
-            if (confirm('Hapus percakapan ini?')) {
-                delete chats[chatId];
+        function deleteChat(historyItem) {
+            const chatId = Array.from(historyItem.parentNode.children).indexOf(historyItem);
+            const chatKeys = Object.keys(chats);
+            const keyToDelete = chatKeys[chatId];
+            
+            historyItem.classList.add('deleting');
+            
+            setTimeout(() => {
+                delete chats[keyToDelete];
+                saveChats();
                 
-                if (currentChatId === chatId) {
+                if (currentChatId === keyToDelete) {
                     currentChatId = null;
                     currentMessages = [];
-                    renderMessages();
                     welcomeScreen.style.display = 'flex';
+                    renderMessages();
                 }
                 
-                saveChats();
                 loadChatHistory();
-            }
+            }, 500);
         }
         
         // Start a new chat
@@ -1128,6 +1257,13 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role === 'user' ? 'user-msg' : 'ai-msg'}`;
             
+            if (role === 'ai') {
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.textContent = 'AX';
+                messageDiv.appendChild(avatar);
+            }
+            
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
             
@@ -1138,8 +1274,46 @@
             const processedContent = processContent(content);
             textDiv.innerHTML = processedContent;
             
+            // Add message actions
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'message-actions';
+            
+            if (role === 'user') {
+                actionsDiv.innerHTML = `
+                    <button class="message-action-btn" data-action="edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="message-action-btn" data-action="copy">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                `;
+            } else {
+                actionsDiv.innerHTML = `
+                    <button class="message-action-btn" data-action="copy">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                `;
+            }
+            
+            textDiv.appendChild(actionsDiv);
             contentDiv.appendChild(textDiv);
             messageDiv.appendChild(contentDiv);
+            
+            // Add event listeners for message actions
+            const actionButtons = messageDiv.querySelectorAll('.message-action-btn');
+            actionButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = btn.getAttribute('data-action');
+                    handleMessageAction(action, messageDiv, content);
+                });
+            });
+            
+            // Add context menu on long press
+            messageDiv.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                showContextMenu(e, messageDiv, content, role);
+            });
             
             chatMessages.appendChild(messageDiv);
             
@@ -1166,7 +1340,7 @@
                         <div class="code-header">
                             <span class="code-language">${lang.toUpperCase()}</span>
                             <div class="code-actions">
-                                <button class="code-action-btn copy-btn">
+                                <button class="code-action-btn copy-code-btn">
                                     <i class="fas fa-copy"></i> Salin
                                 </button>
                             </div>
@@ -1181,7 +1355,7 @@
         
         // Add copy functionality to code blocks
         function addCopyFunctionality() {
-            document.querySelectorAll('.copy-btn').forEach(btn => {
+            document.querySelectorAll('.copy-code-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const codeBlock = this.closest('.code-block');
                     const code = codeBlock.querySelector('code').textContent;
@@ -1196,6 +1370,72 @@
                     });
                 });
             });
+        }
+        
+        // Handle message actions
+        function handleMessageAction(action, messageElement, content) {
+            switch(action) {
+                case 'edit':
+                    // Implement edit functionality
+                    chatInput.value = content;
+                    chatInput.focus();
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(content);
+                    break;
+            }
+        }
+        
+        // Show context menu
+        function showContextMenu(e, messageElement, content, role) {
+            selectedMessage = { element: messageElement, content, role };
+            
+            contextMenu.style.display = 'flex';
+            contextMenu.style.left = `${e.pageX}px`;
+            contextMenu.style.top = `${e.pageY}px`;
+            
+            // Adjust position if menu goes off screen
+            const rect = contextMenu.getBoundingClientRect();
+            if (rect.right > window.innerWidth) {
+                contextMenu.style.left = `${e.pageX - rect.width}px`;
+            }
+            if (rect.bottom > window.innerHeight) {
+                contextMenu.style.top = `${e.pageY - rect.height}px`;
+            }
+        }
+        
+        // Close context menu
+        function closeContextMenu() {
+            contextMenu.style.display = 'none';
+        }
+        
+        // Edit message from context menu
+        function editMessage() {
+            if (selectedMessage && selectedMessage.role === 'user') {
+                chatInput.value = selectedMessage.content;
+                chatInput.focus();
+            }
+            closeContextMenu();
+        }
+        
+        // Copy message from context menu
+        function copyMessage() {
+            if (selectedMessage) {
+                navigator.clipboard.writeText(selectedMessage.content);
+            }
+            closeContextMenu();
+        }
+        
+        // Select message text from context menu
+        function selectMessageText() {
+            if (selectedMessage) {
+                const range = document.createRange();
+                range.selectNodeContents(selectedMessage.element.querySelector('.message-text'));
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+            closeContextMenu();
         }
         
         // Scroll to bottom of chat
@@ -1228,6 +1468,7 @@
             const typingIndicator = document.createElement('div');
             typingIndicator.className = 'message ai-msg';
             typingIndicator.innerHTML = `
+                <div class="message-avatar">AX</div>
                 <div class="message-content">
                     <div class="message-text">
                         <div class="typing-indicator">
@@ -1244,8 +1485,7 @@
             try {
                 // Prepare messages for API
                 const apiMessages = [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    ...currentMessages.map(msg => ({ role: msg.role, content: msg.content }))
+                    { role: "user", parts: [{ text: SYSTEM_PROMPT + "\n\nPertanyaan: " + message }] }
                 ];
                 
                 // Call AI API
@@ -1255,13 +1495,13 @@
                 chatMessages.removeChild(typingIndicator);
                 
                 // Add AI response to chat
-                addMessageToChat('assistant', response);
+                addMessageToChat('ai', response);
             } catch (error) {
                 // Remove typing indicator
                 chatMessages.removeChild(typingIndicator);
                 
                 // Show error message
-                addMessageToChat('assistant', 'Maaf, terjadi kesalahan saat memproses permintaan Anda. Silakan coba lagi.');
+                addMessageToChat('ai', 'Maaf, terjadi kesalahan saat memproses permintaan Anda. Silakan coba lagi.');
                 console.error('Error:', error);
             }
             
@@ -1270,65 +1510,38 @@
             chatInput.focus();
         }
         
-        // Call AI API
+        // Call AI API (Gemini)
         async function callAIAPI(messages) {
-            // In a real implementation, you would call your AI API here
-            // This is a mock implementation for demonstration purposes
-            
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
-            
-            // Mock responses based on user message
-            const userMessage = messages[messages.length - 1].content.toLowerCase();
-            
-            if (userMessage.includes('hallo') || userMessage.includes('hai') || userMessage.includes('halo')) {
-                return "Halo! Saya AZRA-X, asisten AI yang dibuat oleh Naufal Azra. Ada yang bisa saya bantu?";
-            } else if (userMessage.includes('buatkan kode') || userMessage.includes('program') || userMessage.includes('coding')) {
-                return `Tentu, saya akan membantu Anda dengan kode pemrograman. Berikut adalah contoh kode JavaScript untuk menyapa pengguna:
-
-\`\`\`javascript
-// Fungsi untuk menyapa pengguna
-function sapaPengguna(nama) {
-    return \`Halo, \${nama}! Selamat datang di AZRA-X.\`;
-}
-
-// Contoh penggunaan
-const namaPengguna = "Naufal";
-const salam = sapaPengguna(namaPengguna);
-console.log(salam);
-// Output: Halo, Naufal! Selamat datang di AZRA-X.
-\`\`\`
-
-Apakah Anda memerlukan contoh kode dalam bahasa pemrograman lain atau untuk kasus penggunaan tertentu?`;
-            } else if (userMessage.includes('terima kasih')) {
-                return "Sama-sama! Senang bisa membantu Anda. Jika ada pertanyaan lain, jangan ragu untuk bertanya.";
-            } else {
-                return "Saya memahami pertanyaan Anda. Sebagai AI yang dikembangkan oleh Naufal Azra, saya siap membantu dengan berbagai topik termasuk pemrograman, analisis data, penulisan konten, dan banyak lagi. Bisakah Anda memberikan lebih banyak detail tentang apa yang Anda butuhkan?";
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: messages,
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 1000,
+                        }
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates.length > 0) {
+                    return data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error('No response from AI');
+                }
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
             }
-            
-            // In a real implementation, you would use something like:
-            /*
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_KEY}`
-                },
-                body: JSON.stringify({
-                    model: 'gpt-3.5-turbo',
-                    messages: messages,
-                    temperature: 0.7,
-                    max_tokens: 1000
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error('API request failed');
-            }
-            
-            const data = await response.json();
-            return data.choices[0].message.content;
-            */
         }
         
         // Initialize the app
