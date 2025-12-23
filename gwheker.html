@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZRA-X | Beranda Chrome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f0f23;
+            --secondary: #00ff9d;
+            --accent: #9d00ff;
+            --text: #e0e0ff;
+            --card-bg: rgba(15, 15, 35, 0.8);
+            --card-border: rgba(0, 255, 157, 0.3);
+            --shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 157, 0.1) 0%, transparent 20%),
+                linear-gradient(to bottom, #0a0a1a, #0f0f23);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: "CHROME HOMEPAGE";
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            font-size: 0.6rem;
+            color: var(--secondary);
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .datetime {
+            text-align: right;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .date {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .time {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 40px 0;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 18px 25px;
+            background-color: rgba(10, 10, 26, 0.9);
+            border: 2px solid var(--card-border);
+            border-radius: 50px;
+            font-size: 1.2rem;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 25px rgba(0, 255, 157, 0.4);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Quick Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2.2rem;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+
+        .stat-info h3 {
+            font-size: 0.9rem;
+            color: #a0a0c0;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .link-item {
+            background-color: rgba(10, 10, 26, 0.7);
+            border-radius: 10px;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .link-item:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .link-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .link-name {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Bookmarks Section */
+        .bookmarks {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+        }
+
+        .bookmark-categories {
+            margin-bottom: 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-tab {
+            padding: 8px 15px;
+            background-color: rgba(10, 10, 26, 0.7);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab.active {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .bookmark-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .bookmark-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .bookmark-list::-webkit-scrollbar-thumb {
+            background-color: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .bookmark-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: rgba(10, 10, 26, 0.5);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .bookmark-item:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+        }
+
+        .bookmark-favicon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .bookmark-info {
+            flex-grow: 1;
+        }
+
+        .bookmark-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .bookmark-url {
+            font-size: 0.8rem;
+            color: #a0a0c0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Notes Widget */
+        .notes-widget {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .notes-actions button {
+            background-color: rgba(10, 10, 26, 0.7);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .notes-actions button:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .notes-content {
+            background-color: rgba(10, 10, 26, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 150px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+
+        .notes-textarea {
+            width: 100%;
+            height: 120px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+            resize: none;
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+        }
+
+        /* Weather Widget */
+        .weather-widget {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .weather-main {
+            display: flex;
+            align-items: center;
+        }
+
+        .weather-icon {
+            font-size: 3.5rem;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+
+        .weather-temp {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .weather-details {
+            text-align: right;
+        }
+
+        .weather-city {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        /* Crypto Ticker */
+        .crypto-ticker {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+        }
+
+        .crypto-coins {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .crypto-coin {
+            flex: 1;
+            min-width: 150px;
+            background-color: rgba(10, 10, 26, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .crypto-coin:hover {
+            transform: translateY(-3px);
+            background-color: rgba(0, 255, 157, 0.1);
+        }
+
+        .crypto-icon {
+            font-size: 1.8rem;
+            margin-right: 12px;
+            color: gold;
+        }
+
+        .crypto-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .crypto-price {
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .crypto-change {
+            font-size: 0.8rem;
+        }
+
+        .positive {
+            color: #00ff9d;
+        }
+
+        .negative {
+            color: #ff5555;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 157, 0.2);
+            text-align: center;
+            font-size: 0.9rem;
+            color: #a0a0c0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .footer-link {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .datetime {
+                text-align: center;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .links-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .crypto-coin {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header dengan Logo dan Waktu -->
+        <div class="header">
+            <div class="logo">AZRA-X</div>
+            <div class="datetime">
+                <div class="date" id="date">Selasa, 23 Desember 2025</div>
+                <div class="time" id="time">14:30:45</div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchBar" placeholder="Cari di web atau ketik URL...">
+            <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                <div class="stat-info">
+                    <h3>Sistem Siap</h3>
+                    <div class="stat-value pulse">100%</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-wifi"></i></div>
+                <div class="stat-info">
+                    <h3>Koneksi</h3>
+                    <div class="stat-value">Stabil</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="stat-info">
+                    <h3>Keamanan</h3>
+                    <div class="stat-value">Aktif</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-battery-full"></i></div>
+                <div class="stat-info">
+                    <h3>Performa</h3>
+                    <div class="stat-value">Optimal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Quick Links -->
+                <div class="quick-links">
+                    <div class="section-title"><i class="fas fa-rocket"></i> Quick Links</div>
+                    <div class="links-grid">
+                        <a href="https://youtube.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fab fa-youtube"></i></div>
+                            <div class="link-name">YouTube</div>
+                        </a>
+                        <a href="https://github.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fab fa-github"></i></div>
+                            <div class="link-name">GitHub</div>
+                        </a>
+                        <a href="https://gmail.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="link-name">Gmail</div>
+                        </a>
+                        <a href="https://drive.google.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fab fa-google-drive"></i></div>
+                            <div class="link-name">Drive</div>
+                        </a>
+                        <a href="https://translate.google.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fas fa-language"></i></div>
+                            <div class="link-name">Translate</div>
+                        </a>
+                        <a href="https://calendar.google.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="link-name">Calendar</div>
+                        </a>
+                        <a href="https://maps.google.com" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            <div class="link-name">Maps</div>
+                        </a>
+                        <a href="https://notion.so" class="link-item" target="_blank">
+                            <div class="link-icon"><i class="fas fa-sticky-note"></i></div>
+                            <div class="link-name">Notion</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Notes Widget -->
+                <div class="notes-widget">
+                    <div class="notes-header">
+                        <div class="section-title"><i class="fas fa-sticky-note"></i> Catatan Cepat</div>
+                        <div class="notes-actions">
+                            <button id="saveNote"><i class="fas fa-save"></i></button>
+                            <button id="clearNote"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="notes-content">
+                        <textarea class="notes-textarea" id="notesTextarea" placeholder="Ketik catatan Anda di sini..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Weather Widget -->
+                <div class="weather-widget">
+                    <div class="section-title"><i class="fas fa-cloud-sun"></i> Cuaca Hari Ini</div>
+                    <div class="weather-info">
+                        <div class="weather-main">
+                            <div class="weather-icon"><i class="fas fa-sun"></i></div>
+                            <div class="weather-temp">28°C</div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="weather-city">Jakarta, ID</div>
+                            <div>Cerah Berawan</div>
+                            <div>Kelembapan: 65%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookmarks -->
+                <div class="bookmarks">
+                    <div class="section-title"><i class="fas fa-bookmark"></i> Bookmark</div>
+                    <div class="bookmark-categories">
+                        <div class="category-tabs">
+                            <div class="category-tab active" data-category="work">Kerja</div>
+                            <div class="category-tab" data-category="social">Sosial</div>
+                            <div class="category-tab" data-category="tools">Tools</div>
+                            <div class="category-tab" data-category="news">Berita</div>
+                        </div>
+                        <div class="bookmark-list" id="bookmarkList">
+                            <!-- Bookmark items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crypto Ticker -->
+                <div class="crypto-ticker">
+                    <div class="section-title"><i class="fas fa-chart-line"></i> Crypto Ticker</div>
+                    <div class="crypto-coins">
+                        <div class="crypto-coin">
+                            <div class="crypto-icon"><i class="fab fa-bitcoin"></i></div>
+                            <div class="crypto-info">
+                                <h4>Bitcoin</h4>
+                                <div class="crypto-price">$41,230</div>
+                                <div class="crypto-change positive">+2.3%</div>
+                            </div>
+                        </div>
+                        <div class="crypto-coin">
+                            <div class="crypto-icon"><i class="fab fa-ethereum"></i></div>
+                            <div class="crypto-info">
+                                <h4>Ethereum</h4>
+                                <div class="crypto-price">$2,850</div>
+                                <div class="crypto-change positive">+1.7%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div>AZRA-X Chrome Homepage v2.1 | Sistem Optimal</div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Pengaturan</a>
+                <a href="#" class="footer-link">Tema</a>
+                <a href="#" class="footer-link">Bantuan</a>
+                <a href="#" class="footer-link">Tentang</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update waktu dan tanggal secara real-time
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Format tanggal
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('id-ID', options);
+            document.getElementById('date').textContent = dateString;
+            
+            // Format waktu
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Jalankan pertama kali dan set interval
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Fungsi pencarian
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+        document.getElementById('searchBar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            const query = document.getElementById('searchBar').value.trim();
+            if (query) {
+                // Cek jika query adalah URL
+                if (query.includes('.') || query.startsWith('http://') || query.startsWith('https://')) {
+                    let url = query;
+                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                        url = 'https://' + url;
+                    }
+                    window.open(url, '_blank');
+                } else {
+                    // Lakukan pencarian Google
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                }
+                document.getElementById('searchBar').value = '';
+            }
+        }
+
+        // Bookmark data
+        const bookmarks = {
+            work: [
+                { name: "GitHub", url: "https://github.com", color: "#333" },
+                { name: "Stack Overflow", url: "https://stackoverflow.com", color: "#f48024" },
+                { name: "Figma", url: "https://figma.com", color: "#f24e1e" },
+                { name: "LinkedIn", url: "https://linkedin.com", color: "#0077b5" },
+                { name: "Notion", url: "https://notion.so", color: "#000000" }
+            ],
+            social: [
+                { name: "YouTube", url: "https://youtube.com", color: "#ff0000" },
+                { name: "Twitter", url: "https://twitter.com", color: "#1da1f2" },
+                { name: "Instagram", url: "https://instagram.com", color: "#e4405f" },
+                { name: "Discord", url: "https://discord.com", color: "#5865f2" },
+                { name: "Reddit", url: "https://reddit.com", color: "#ff4500" }
+            ],
+            tools: [
+                { name: "ChatGPT", url: "https://chat.openai.com", color: "#10a37f" },
+                { name: "Canva", url: "https://canva.com", color: "#00c4cc" },
+                { name: "Remove BG", url: "https://remove.bg", color: "#5cc9a7" },
+                { name: "TinyPNG", url: "https://tinypng.com", color: "#ff6b6b" },
+                { name: "JSON Formatter", url: "https://jsonformatter.org", color: "#5d6bc4" }
+            ],
+            news: [
+                { name: "Kompas", url: "https://kompas.com", color: "#d72727" },
+                { name: "TechCrunch", url: "https://techcrunch.com", color: "#000000" },
+                { name: "The Verge", url: "https://theverge.com", color: "#000000" },
+                { name: "Hacker News", url: "https://news.ycombinator.com", color: "#ff6600" },
+                { name: "Medium", url: "https://medium.com", color: "#000000" }
+            ]
+        };
+
+        // Render bookmark berdasarkan kategori
+        function renderBookmarks(category) {
+            const bookmarkList = document.getElementById('bookmarkList');
+            bookmarkList.innerHTML = '';
+            
+            bookmarks[category].forEach(bookmark => {
+                const firstLetter = bookmark.name.charAt(0).toUpperCase();
+                
+                const bookmarkItem = document.createElement('div');
+                bookmarkItem.className = 'bookmark-item';
+                bookmarkItem.innerHTML = `
+                    <div class="bookmark-favicon" style="background-color: ${bookmark.color}">${firstLetter}</div>
+                    <div class="bookmark-info">
+                        <div class="bookmark-name">${bookmark.name}</div>
+                        <div class="bookmark-url">${bookmark.url}</div>
+                    </div>
+                `;
+                
+                bookmarkItem.addEventListener('click', () => {
+                    window.open(bookmark.url, '_blank');
+                });
+                
+                bookmarkList.appendChild(bookmarkItem);
+            });
+        }
+
+        // Aktifkan kategori bookmark
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Hapus class active dari semua tab
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                
+                // Tambah class active ke tab yang diklik
+                this.classList.add('active');
+                
+                // Render bookmark berdasarkan kategori
+                const category = this.getAttribute('data-category');
+                renderBookmarks(category);
+            });
+        });
+
+        // Inisialisasi bookmark dengan kategori pertama
+        renderBookmarks('work');
+
+        // Notes functionality
+        const notesTextarea = document.getElementById('notesTextarea');
+        const saveNoteBtn = document.getElementById('saveNote');
+        const clearNoteBtn = document.getElementById('clearNote');
+
+        // Load saved notes from localStorage
+        const savedNotes = localStorage.getItem('azrax-notes');
+        if (savedNotes) {
+            notesTextarea.value = savedNotes;
+        }
+
+        // Save notes
+        saveNoteBtn.addEventListener('click', () => {
+            localStorage.setItem('azrax-notes', notesTextarea.value);
+            showNotification('Catatan disimpan!');
+        });
+
+        // Clear notes
+        clearNoteBtn.addEventListener('click', () => {
+            if (confirm('Hapus semua catatan?')) {
+                notesTextarea.value = '';
+                localStorage.removeItem('azrax-notes');
+                showNotification('Catatan dihapus!');
+            }
+        });
+
+        // Auto-save notes setiap 10 detik
+        setInterval(() => {
+            if (notesTextarea.value !== localStorage.getItem('azrax-notes')) {
+                localStorage.setItem('azrax-notes', notesTextarea.value);
+                console.log('Catatan otomatis disimpan');
+            }
+        }, 10000);
+
+        // Fungsi notifikasi sederhana
+        function showNotification(message) {
+            // Buat elemen notifikasi
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: var(--secondary);
+                color: var(--primary);
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-weight: 600;
+                z-index: 1000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // Tambahkan keyframe animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Hapus notifikasi setelah 3 detik
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Efek hover dinamis untuk stat cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.stat-icon i');
+                icon.style.transform = 'scale(1.2) rotate(10deg)';
+                icon.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.stat-icon i');
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Randomize stats secara periodik (efek dinamis)
+        function updateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            // Update koneksi dengan status acak
+            const connectionStatuses = ['Stabil', 'Cepat', 'Optimal'];
+            statValues[1].textContent = connectionStatuses[Math.floor(Math.random() * connectionStatuses.length)];
+            
+            // Update performa dengan nilai acak
+            const performanceValues = ['Optimal', 'Tinggi', 'Maksimal'];
+            statValues[3].textContent = performanceValues[Math.floor(Math.random() * performanceValues.length)];
+        }
+
+        // Update stats setiap 10 detik
+        setInterval(updateStats, 10000);
+
+        // Fitur tema gelap/terang sederhana
+        const logo = document.querySelector('.logo');
+        logo.addEventListener('dblclick', function() {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                document.body.style.backgroundColor = '#f0f0f5';
+                document.body.style.color = '#333';
+                showNotification('Mode Terang Diaktifkan');
+            } else {
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                showNotification('Mode Gelap Diaktifkan');
+            }
+        });
+
+        // Inisialisasi cuaca dengan data acak (simulasi)
+        function updateWeather() {
+            const tempElement = document.querySelector('.weather-temp');
+            const cityElement = document.querySelector('.weather-city');
+            const iconElement = document.querySelector('.weather-icon i');
+            
+            // Simulasi perubahan suhu acak
+            const currentTemp = parseInt(tempElement.textContent);
+            const newTemp = currentTemp + (Math.random() > 0.5 ? 1 : -1);
+            
+            // Pastikan suhu dalam rentang realistis
+            const finalTemp = Math.max(25, Math.min(35, newTemp));
+            tempElement.textContent = `${finalTemp}°C`;
+            
+            // Pilih kota acak
+            const cities = [
+                { name: "Jakarta, ID", temp: finalTemp },
+                { name: "Bandung, ID", temp: finalTemp - 3 },
+                { name: "Surabaya, ID", temp: finalTemp + 2 },
+                { name: "Bali, ID", temp: finalTemp + 1 }
+            ];
+            
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            cityElement.textContent = randomCity.name;
+            
+            // Update ikon berdasarkan suhu
+            if (finalTemp > 30) {
+                iconElement.className = 'fas fa-sun';
+                iconElement.style.color = '#ff9900';
+            } else if (finalTemp > 27) {
+                iconElement.className = 'fas fa-cloud-sun';
+                iconElement.style.color = '#ffcc00';
+            } else {
+                iconElement.className = 'fas fa-cloud';
+                iconElement.style.color = '#cccccc';
+            }
+        }
+
+        // Update cuaca setiap 30 detik
+        setInterval(updateWeather, 30000);
+    </script>
+</body>
+</html>
